@@ -16,12 +16,12 @@ RUN INSTALL_PKGS="python-devel python-setuptools net-tools" && \
     yum -y update && \
     yum -q clean all
 
-RUN cd $HOME
+RUN mkdir $ELASTALERT_HOME && cd $ELASTALERT_HOME
 
 RUN wget https://raw.githubusercontent.com/kilimandjango/openshift-elastalert/master/configuration/run.sh
 
 # Copy config
-COPY $HOME/configuration/run.sh $ELASTALERT_HOME/run.sh
+# COPY $HOME/configuration/run.sh $ELASTALERT_HOME/run.sh
 
 # Create default user and change ownership of files
 RUN useradd -u 1000 -r -g 0 -m -d $HOME -s /sbin/nologin -c "elastalert user" elastalert && \
