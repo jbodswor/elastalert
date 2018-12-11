@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/rhscl/python-27-rhel7
 
-MAINTAINER Kilian Henneboehle "kilian.henneboehle@mailbox.org"
+MAINTAINER Jason Bodsworth "j.bodsworth@leonardo.com.au"
 
 ENV ELASTALERT_VERSION 0.1.29
 
@@ -16,7 +16,9 @@ RUN INSTALL_PKGS="python-devel python-setuptools net-tools" && \
     yum -y update && \
     yum -q clean all
 
-RUN mkdir $ELASTALERT_HOME && cd $HOME && wget https://raw.githubusercontent.com/kilimandjango/openshift-elastalert/master/configuration/run.sh
+RUN mkdir $ELASTALERT_HOME && cd $ELASTALERT_HOME && \
+    wget https://raw.githubusercontent.com/kilimandjango/openshift-elastalert/master/configuration/run.sh && \
+    cd $HOME
 
 # Copy config
 # COPY $HOME/configuration/run.sh $ELASTALERT_HOME/run.sh
@@ -30,8 +32,7 @@ RUN useradd -u 1000 -r -g 0 -m -d $HOME -s /sbin/nologin -c "elastalert user" el
 
 # Create dirs
 RUN chmod +x $ELASTALERT_HOME/run.sh && \
-#    ln -s $ELASTALERT_HOME/run.sh $HOME/run.sh && \
-    ln -s $HOME/run.sh $ELASTALERT_HOME/run.sh && \
+    ln -s $ELASTALERT_HOME/run.sh $HOME/run.sh && \
     mkdir $ELASTALERT_HOME/rules && \
     mkdir $ELASTALERT_HOME/config
 
