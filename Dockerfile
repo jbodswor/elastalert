@@ -30,7 +30,8 @@ RUN useradd -u 1000 -r -g 0 -m -d $HOME -s /sbin/nologin -c "elastalert user" el
 
 # Create dirs
 RUN chmod +x $ELASTALERT_HOME/run.sh && \
-    ln -s $ELASTALERT_HOME/run.sh $HOME/run.sh && \
+#    ln -s $ELASTALERT_HOME/run.sh $HOME/run.sh && \
+    ln -s $HOME/run.sh $ELASTALERT_HOME/run.sh && \
     mkdir $ELASTALERT_HOME/rules && \
     mkdir $ELASTALERT_HOME/config
 
